@@ -1,103 +1,86 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import { mockRanking, mockPrizes, currentUser } from '@/lib/mock-data';
+import { RankingList } from '@/components/features/RankingList';
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [activeTab, setActiveTab] = useState<'prizes' | 'ranking'>('prizes');
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Header */}
+      <header className="py-6 px-4 sm:py-8">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-400 tracking-wider">WEB3 ARENA</h1>
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg md:text-xl text-gray-300">
+            Resgate as gotas de cada painel. Os melhores no ranking, ganham:
+          </p>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="px-4 pb-8">
+        <div className="max-w-4xl mx-auto">
+          {/* Tabs */}
+          <div className="flex gap-2 mb-8">
+            <button
+              onClick={() => setActiveTab('prizes')}
+              className={`px-8 py-3 rounded-full text-lg font-medium transition-colors ${
+                activeTab === 'prizes'
+                  ? 'bg-gray-800 text-white hover:bg-gray-700'
+                  : 'bg-white text-black hover:bg-gray-100'
+              }`}
+            >
+              prêmios
+            </button>
+            <button
+              onClick={() => setActiveTab('ranking')}
+              className={`px-8 py-3 rounded-full text-lg font-medium transition-colors ${
+                activeTab === 'ranking'
+                  ? 'bg-gray-800 text-white hover:bg-gray-700'
+                  : 'bg-white text-black hover:bg-gray-100'
+              }`}
+            >
+              ranking
+            </button>
+          </div>
+
+          {/* Content based on active tab */}
+          {activeTab === 'prizes' ? (
+            /* Prizes Section */
+            <div className="space-y-4">
+              {mockPrizes.map((prize) => (
+              <div
+                key={prize.id}
+                className="bg-gray-900 rounded-2xl p-4 sm:p-6 flex items-center gap-3 sm:gap-6"
+              >
+                {/* Position Badge */}
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-black rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-lg sm:text-2xl font-bold">{prize.position}°</span>
+                </div>
+
+                {/* Prize Image Placeholder */}
+                <div className="w-24 h-20 sm:w-32 sm:h-24 bg-white rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-gray-400 text-xs">Imagem</span>
+                </div>
+
+                {/* Prize Info */}
+                <div className="flex-1">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-medium">{prize.name}</h3>
+                  <p className="text-xl sm:text-2xl md:text-3xl font-light text-gray-400 mt-1">
+                    R$ {prize.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                  </p>
+                </div>
+              </div>
+            ))}
+            </div>
+          ) : (
+            /* Ranking Section */
+            <RankingList rankings={mockRanking} currentUserId={currentUser.id} />
+          )}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
