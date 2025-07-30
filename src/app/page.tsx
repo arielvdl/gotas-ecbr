@@ -101,42 +101,19 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Brutalist background pattern */}
-      <div className="fixed inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px)`,
-        }} />
-      </div>
-
-      {/* Neon grid overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-20">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(cyan 2px, transparent 2px),
-            linear-gradient(90deg, magenta 2px, transparent 2px)
-          `,
-          backgroundSize: '50px 50px',
-        }} />
-      </div>
 
       {/* Header */}
-      <header className="relative py-8 px-4 sm:py-12 border-b-8 border-pink-500 shadow-[0_10px_40px_rgba(236,72,153,0.5)]">
+      <header className="relative py-8 px-4 sm:py-12 border-b-8 border-pink-500">
         <div className="max-w-6xl mx-auto">
-          {/* Brutalist title container */}
-          <div className="relative inline-block">
-            <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-purple-500 blur-xl opacity-50" />
-            <h1 className="relative text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 drop-shadow-[0_0_30px_rgba(236,72,153,0.8)]">
-                WEB3
-              </span>
-              <span className="text-white ml-2 drop-shadow-[5px_5px_0px_rgba(236,72,153,1)]">
-                ARENA
-              </span>
-            </h1>
-            {/* Brutalist accent blocks */}
-            <div className="absolute -top-6 -right-6 w-12 h-12 bg-yellow-400" />
-            <div className="absolute -bottom-6 -left-6 w-12 h-12 bg-cyan-400" />
-          </div>
+          {/* Title */}
+          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
+              WEB3
+            </span>
+            <span className="text-white ml-2">
+              ARENA
+            </span>
+          </h1>
           
           <div className="mt-6 relative">
             <p className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-wider text-gray-300 transform -rotate-1">
