@@ -39,26 +39,26 @@ export const mockUsers: User[] = [
 export const mockPrizes: Prize[] = [
   {
     id: '1',
-    name: 'Ledger Classic 2025',
-    description: 'Hardware wallet para criptomoedas',
-    value: 2938.00,
-    image: '/ledger-classic.png',
+    name: 'Stax + Recovery KEY + Voucher BTC $40 + Concierge',
+    description: 'Ledger Stax com Recovery Key, Voucher BTC $40 e serviço de configuração',
+    value: 5124.28,
+    image: '/ledger-stax.png',
     position: 1
   },
   {
     id: '2',
-    name: 'Ledger Classic 2025',
-    description: 'Hardware wallet para criptomoedas',
-    value: 2938.00,
-    image: '/ledger-classic.png',
+    name: 'Flex + Recovery KEY + Voucher BTC $20 + Concierge',
+    description: 'Ledger Flex com Recovery Key, Voucher BTC $20 e serviço de configuração',
+    value: 3334.13,
+    image: '/ledger-flex.png',
     position: 2
   },
   {
     id: '3',
-    name: 'Ledger Classic 2025',
-    description: 'Hardware wallet para criptomoedas',
-    value: 2938.00,
-    image: '/ledger-classic.png',
+    name: 'OneKey Classic 1S + Curso Completo',
+    description: 'Hardware wallet OneKey Classic 1S com curso completo incluso',
+    value: 897.00,
+    image: '/onekey-classic.png',
     position: 3
   }
 ];

@@ -254,8 +254,25 @@ export default function Home() {
 
                     {/* Prize Image */}
                     <div className="relative">
-                      <div className="w-32 h-28 sm:w-40 sm:h-32 bg-gradient-to-br from-gray-800 to-gray-900 border-4 border-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.6)] flex items-center justify-center">
-                        <span className="text-cyan-400 font-bold uppercase tracking-wider">LEDGER</span>
+                      <div className="w-32 h-28 sm:w-40 sm:h-32 bg-gradient-to-br from-gray-800 to-gray-900 border-4 border-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.6)] flex items-center justify-center overflow-hidden p-2">
+                        {/* Placeholder até as imagens serem adicionadas */}
+                        <div className="text-center">
+                          <div className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
+                            {prize.position === 1 && 'LEDGER STAX'}
+                            {prize.position === 2 && 'LEDGER FLEX'}
+                            {prize.position === 3 && 'ONEKEY'}
+                          </div>
+                          <div className="text-gray-500 text-xs">
+                            [Imagem]
+                          </div>
+                        </div>
+                        {/* Quando as imagens forem adicionadas, descomentar:
+                        <img 
+                          src={prize.image} 
+                          alt={prize.name}
+                          className="w-full h-full object-contain"
+                        />
+                        */}
                       </div>
                       <div className="absolute -top-3 -left-3 w-6 h-6 bg-cyan-400" />
                       <div className="absolute -bottom-3 -right-3 w-6 h-6 bg-purple-500" />
@@ -263,10 +280,17 @@ export default function Home() {
 
                     {/* Prize Info */}
                     <div className="flex-1">
-                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-tight text-white drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
-                        {prize.name}
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-white drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
+                        {prize.position === 1 && 'LEDGER STAX'}
+                        {prize.position === 2 && 'LEDGER FLEX'}
+                        {prize.position === 3 && 'ONEKEY CLASSIC 1S'}
                       </h3>
-                      <p className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600 mt-2 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]">
+                      <p className="text-sm sm:text-base text-gray-400 mt-1 font-medium">
+                        {prize.position === 1 && '+ Recovery Key + BTC $40 + Concierge'}
+                        {prize.position === 2 && '+ Recovery Key + BTC $20 + Concierge'}
+                        {prize.position === 3 && '+ Curso Completo'}
+                      </p>
+                      <p className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600 mt-3 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]">
                         R$ {prize.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </p>
                     </div>
@@ -280,7 +304,48 @@ export default function Home() {
             </div>
           ) : (
             /* Ranking Section */
-            <NeonBrutalistRankingList rankings={mockRanking} currentUserId={currentUser.id} />
+            <div className="relative">
+              {/* Mensagem temporária */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 blur-3xl opacity-30" />
+                <div className="relative border-8 border-purple-500 bg-black p-8 sm:p-12 text-center shadow-[0_0_60px_rgba(168,85,247,0.6)] transform -rotate-1">
+                  {/* Brutalist corner accents */}
+                  <div className="absolute -top-6 -left-6 w-12 h-12 bg-yellow-400" />
+                  <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-cyan-400" />
+                  
+                  <div className="relative">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-6 drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
+                      🏆 RANKING EM BREVE
+                    </h2>
+                    <div className="max-w-2xl mx-auto">
+                      <p className="text-xl sm:text-2xl font-bold text-cyan-400 mb-4 drop-shadow-[0_0_20px_rgba(6,182,212,0.8)]">
+                        DIA 31 - LIBERAÇÃO TOTAL
+                      </p>
+                      <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
+                        O ranking completo será revelado no dia 31! 
+                        <span className="block mt-2 text-yellow-400 font-bold animate-pulse drop-shadow-[0_0_15px_rgba(251,191,36,0.8)]">
+                          Continue resgatando suas gotas em cada palestra para garantir sua posição no topo!
+                        </span>
+                      </p>
+                      <div className="mt-8 inline-block">
+                        <div className="bg-gradient-to-r from-pink-500 to-purple-500 p-1 shadow-[0_0_30px_rgba(236,72,153,0.8)]">
+                          <div className="bg-black px-6 py-3">
+                            <p className="text-sm sm:text-base font-black uppercase tracking-wider text-white">
+                              ⚡ Cada gota conta ⚡
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Ranking oculto para uso futuro */}
+              <div className="hidden">
+                <NeonBrutalistRankingList rankings={mockRanking} currentUserId={currentUser.id} />
+              </div>
+            </div>
           )}
         </div>
       </main>

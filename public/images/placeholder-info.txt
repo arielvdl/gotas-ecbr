@@ -1,0 +1,23 @@
+INSTRUÇÕES PARA ADICIONAR AS IMAGENS DAS CARTEIRAS:
+
+Por favor, baixe as imagens oficiais dos seguintes produtos e salve nesta pasta:
+
+1. ledger-stax.png
+   - Produto: Ledger Stax (carteira com tela E-Ink curva)
+   - Link oficial: https://shop.ledger.com/products/ledger-stax
+   - Cor: Preferencialmente preta
+   - Resolução sugerida: 400x300px ou similar
+
+2. ledger-flex.png
+   - Produto: Ledger Flex
+   - Link oficial: https://shop.ledger.com/products/ledger-flex
+   - Cor: Preferencialmente preta
+   - Resolução sugerida: 400x300px ou similar
+
+3. onekey-classic.png
+   - Produto: OneKey Classic 1S
+   - Link oficial: https://onekey.so/products/onekey-classic-1s
+   - Cor: Preferencialmente preta
+   - Resolução sugerida: 400x300px ou similar
+
+Certifique-se de que as imagens tenham fundo transparente ou branco para melhor visualização no layout dark.
