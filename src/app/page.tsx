@@ -263,7 +263,7 @@ export default function Home() {
                       <p className="text-sm sm:text-base text-gray-400 mt-1 font-medium">
                         {prize.position === 1 && '+ Recovery Key + BTC $40 + Concierge'}
                         {prize.position === 2 && '+ Recovery Key + BTC $20 + Concierge'}
-                        {prize.position === 3 && 'Crédito para usar site'}
+                        {prize.position === 3 && 'Crédito para usar e-commerce'}
                         {prize.position === 4 && '+ Curso Completo'}
                       </p>
                       <p className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600 mt-3 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]">
@@ -271,11 +271,15 @@ export default function Home() {
                       </p>
                       
                       {/* Botões Ver no Site/Ver Mais */}
-                      {(prize.position === 3 || prize.position === 4) && (
+                      {prize.position > 0 && (
                         <div className="mt-4">
                           <a
                             href={
-                              prize.position === 3 
+                              prize.position === 1 
+                                ? "https://shop.ledger.com/pt/products/ledger-stax?srsltid=AfmBOop0n8K8etxmt32VyQvYLUHLDZWDd3Lit4_CqWohkEKYmeQMF5hG"
+                                : prize.position === 2
+                                ? "https://shop.ledger.com/pt/pages/ledger-flex?srsltid=AfmBOorKawPQAOjWr7mrxv9oy9KnxwHczdBk8_w9j2kexuht9SLKwRkr"
+                                : prize.position === 3 
                                 ? "https://fuselabs.com.br/?utm_source=ecbr&utm_campaign=&utm_medium=&utm_content=&utm_term="
                                 : "https://prohash.com.br/products/onekey-classic"
                             }
@@ -372,6 +376,13 @@ export default function Home() {
       {/* Floating neon elements */}
       <div className="fixed bottom-8 right-8 w-32 h-32 bg-gradient-to-br from-cyan-500 to-purple-500 blur-3xl opacity-20 animate-pulse" />
       <div className="fixed top-1/2 left-8 w-24 h-24 bg-gradient-to-br from-pink-500 to-orange-500 blur-2xl opacity-20 animate-pulse" />
+
+      {/* Footer */}
+      <footer className="relative py-8 px-4 text-center border-t-4 border-gray-800">
+        <p className="text-sm sm:text-base font-medium text-gray-500">
+          © 2023 gotas.com
+        </p>
+      </footer>
     </div>
   );
 }

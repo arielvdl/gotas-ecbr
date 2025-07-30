@@ -55,8 +55,8 @@ export const mockPrizes: Prize[] = [
   },
   {
     id: '3',
-    name: 'FuseLabs - Crédito para usar site',
-    description: 'Crédito de R$ 3.000,00 para utilizar nos serviços FuseLabs',
+    name: 'FuseLabs - Crédito para usar e-commerce',
+    description: 'Crédito de R$ 3.000,00 para utilizar no e-commerce FuseLabs',
     value: 3000.00,
     image: '/fuselabs.png',
     position: 3
