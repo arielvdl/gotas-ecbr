@@ -336,6 +336,25 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
+                      
+                      {/* Botão O que é gotas? */}
+                      <div className="mt-6">
+                        <a
+                          href="https://the.gotas.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block group"
+                        >
+                          <div className="relative transform transition-all duration-300 hover:translate-x-1 hover:translate-y-0.5">
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 blur-lg opacity-50 group-hover:opacity-80 transition-opacity" />
+                            <div className="relative border-4 border-cyan-400 bg-black px-8 py-4 shadow-[5px_5px_0px_rgba(6,182,212,1)] hover:shadow-[8px_8px_0px_rgba(236,72,153,1)]">
+                              <span className="text-lg font-black uppercase tracking-wider text-white">
+                                O QUE É GOTAS? 💧
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
