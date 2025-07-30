@@ -332,6 +332,15 @@ export default function Home() {
                         </span>
                       </p>
                       
+                      <div className="mt-6 p-4 border-2 border-cyan-400/50 bg-gray-900/50 rounded-lg">
+                        <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                          <span className="text-cyan-400 font-bold">📍 Dia 31, às 17h</span> - Os participantes com maior quantidade de gotas ganharão os prêmios de acordo com sua posição no ranking.
+                          <span className="block mt-2 text-sm sm:text-base text-gray-400">
+                            <span className="text-pink-400 font-semibold">⚠️ Em caso de empate:</span> O desempate será feito por ordem de claim - quem solicitar primeiro o prêmio neste site garantirá a melhor colocação.
+                          </span>
+                        </p>
+                      </div>
+                      
                       {/* Botão O que é gotas? */}
                       <div className="mt-8">
                         <a
