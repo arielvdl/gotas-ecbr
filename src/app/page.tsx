@@ -241,7 +241,7 @@ export default function Home() {
                   {/* Neon backdrop */}
                   <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 via-orange-500 to-pink-500 blur-xl opacity-30" />
                   
-                  <div className="relative border-8 border-yellow-400 bg-black p-6 sm:p-8 flex items-center gap-6 sm:gap-8 shadow-[0_0_60px_rgba(251,191,36,0.6)] hover:shadow-[10px_10px_0px_rgba(251,191,36,1)] transition-all duration-300">
+                  <div className="relative border-8 border-yellow-400 bg-black p-6 sm:p-8 flex items-center gap-8 sm:gap-12 shadow-[0_0_60px_rgba(251,191,36,0.6)] hover:shadow-[10px_10px_0px_rgba(251,191,36,1)] transition-all duration-300">
                     {/* Position Badge */}
                     <div className="relative">
                       <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-yellow-400 to-orange-600 flex items-center justify-center transform -rotate-12 shadow-[0_0_40px_rgba(251,191,36,0.8)]">
@@ -250,32 +250,6 @@ export default function Home() {
                         </span>
                       </div>
                       <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-pink-500" />
-                    </div>
-
-                    {/* Prize Image */}
-                    <div className="relative">
-                      <div className="w-32 h-28 sm:w-40 sm:h-32 bg-gradient-to-br from-gray-800 to-gray-900 border-4 border-cyan-400 shadow-[0_0_30px_rgba(6,182,212,0.6)] flex items-center justify-center overflow-hidden p-2">
-                        {/* Placeholder até as imagens serem adicionadas */}
-                        <div className="text-center">
-                          <div className="text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
-                            {prize.position === 1 && 'LEDGER STAX'}
-                            {prize.position === 2 && 'LEDGER FLEX'}
-                            {prize.position === 3 && 'ONEKEY'}
-                          </div>
-                          <div className="text-gray-500 text-xs">
-                            [Imagem]
-                          </div>
-                        </div>
-                        {/* Quando as imagens forem adicionadas, descomentar:
-                        <img 
-                          src={prize.image} 
-                          alt={prize.name}
-                          className="w-full h-full object-contain"
-                        />
-                        */}
-                      </div>
-                      <div className="absolute -top-3 -left-3 w-6 h-6 bg-cyan-400" />
-                      <div className="absolute -bottom-3 -right-3 w-6 h-6 bg-purple-500" />
                     </div>
 
                     {/* Prize Info */}
