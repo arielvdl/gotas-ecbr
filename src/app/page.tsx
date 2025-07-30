@@ -257,22 +257,28 @@ export default function Home() {
                       <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-white drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
                         {prize.position === 1 && 'LEDGER STAX'}
                         {prize.position === 2 && 'LEDGER FLEX'}
-                        {prize.position === 3 && 'ONEKEY CLASSIC 1S'}
+                        {prize.position === 3 && 'FUSELABS'}
+                        {prize.position === 4 && 'ONEKEY CLASSIC 1S'}
                       </h3>
                       <p className="text-sm sm:text-base text-gray-400 mt-1 font-medium">
                         {prize.position === 1 && '+ Recovery Key + BTC $40 + Concierge'}
                         {prize.position === 2 && '+ Recovery Key + BTC $20 + Concierge'}
-                        {prize.position === 3 && '+ Curso Completo'}
+                        {prize.position === 3 && 'Crédito para usar site'}
+                        {prize.position === 4 && '+ Curso Completo'}
                       </p>
                       <p className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600 mt-3 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]">
                         R$ {prize.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </p>
                       
-                      {/* Botão Ver no Site - apenas para OneKey */}
-                      {prize.position === 3 && (
+                      {/* Botões Ver no Site/Ver Mais */}
+                      {(prize.position === 3 || prize.position === 4) && (
                         <div className="mt-4">
                           <a
-                            href="https://prohash.com.br/products/onekey-classic"
+                            href={
+                              prize.position === 3 
+                                ? "https://fuselabs.com.br/?utm_source=ecbr&utm_campaign=&utm_medium=&utm_content=&utm_term="
+                                : "https://prohash.com.br/products/onekey-classic"
+                            }
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-block group"
@@ -280,7 +286,7 @@ export default function Home() {
                             <div className="relative transform transition-all duration-300 hover:translate-x-1 hover:translate-y-0.5">
                               <div className="relative border-4 border-purple-500 bg-black px-6 py-2 shadow-[3px_3px_0px_rgba(168,85,247,1)] hover:shadow-[5px_5px_0px_rgba(236,72,153,1)]">
                                 <span className="text-sm font-black uppercase tracking-wider text-white">
-                                  VER NO SITE →
+                                  {prize.position === 3 ? 'VER MAIS →' : 'VER NO SITE →'}
                                 </span>
                               </div>
                             </div>

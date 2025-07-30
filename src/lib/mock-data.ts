@@ -55,11 +55,19 @@ export const mockPrizes: Prize[] = [
   },
   {
     id: '3',
+    name: 'FuseLabs - Crédito para usar site',
+    description: 'Crédito de R$ 3.000,00 para utilizar nos serviços FuseLabs',
+    value: 3000.00,
+    image: '/fuselabs.png',
+    position: 3
+  },
+  {
+    id: '4',
     name: 'OneKey Classic 1S + Curso Completo',
     description: 'Hardware wallet OneKey Classic 1S com curso completo incluso',
     value: 897.00,
     image: '/onekey-classic.png',
-    position: 3
+    position: 4
   }
 ];
 
