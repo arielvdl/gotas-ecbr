@@ -105,15 +105,22 @@ export default function Home() {
       {/* Header */}
       <header className="relative py-8 px-4 sm:py-12 border-b-8 border-pink-500">
         <div className="max-w-6xl mx-auto">
-          {/* Title */}
-          <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
-              WEB3
-            </span>
-            <span className="text-white ml-2">
-              ARENA
-            </span>
-          </h1>
+          {/* Title with Logo */}
+          <div className="flex items-center gap-4">
+            <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
+                WEB3
+              </span>
+              <span className="text-white ml-2">
+                ARENA
+              </span>
+            </h1>
+            <img 
+              src="https://88ae784e400c50e563482987bb9e892e.cdn.bubble.io/d215/f1734637291846x773314381854655700/logo_gotas_v2_clean.svg"
+              alt="Gotas Logo"
+              className="w-[70px] h-[70px]"
+            />
+          </div>
           
           <div className="mt-6 relative">
             <p className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-wider text-gray-300 transform -rotate-1">
@@ -218,10 +225,10 @@ export default function Home() {
                   {/* Neon backdrop */}
                   <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 via-orange-500 to-pink-500 blur-xl opacity-30" />
                   
-                  <div className="relative border-8 border-yellow-400 bg-black p-6 sm:p-8 flex items-center gap-8 sm:gap-12 shadow-[0_0_60px_rgba(251,191,36,0.6)] hover:shadow-[10px_10px_0px_rgba(251,191,36,1)] transition-all duration-300">
+                  <div className="relative border-8 border-yellow-400 bg-black p-6 sm:p-8 flex items-center gap-8 sm:gap-12 shadow-[0_0_6px_rgba(251,191,36,0.6)] sm:shadow-[0_0_60px_rgba(251,191,36,0.6)] hover:shadow-[10px_10px_0px_rgba(251,191,36,1)] transition-all duration-300">
                     {/* Position Badge */}
                     <div className="relative">
-                      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-yellow-400 to-orange-600 flex items-center justify-center transform -rotate-12 shadow-[0_0_40px_rgba(251,191,36,0.8)]">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-yellow-400 to-orange-600 flex items-center justify-center transform -rotate-12 shadow-[0_0_4px_rgba(251,191,36,0.8)] sm:shadow-[0_0_40px_rgba(251,191,36,0.8)]">
                         <span className="text-3xl sm:text-4xl font-black text-black transform rotate-12">
                           {prize.position}°
                         </span>
@@ -231,7 +238,7 @@ export default function Home() {
 
                     {/* Prize Info */}
                     <div className="flex-1">
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-white drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-white sm:drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
                         {prize.position === 1 && 'LEDGER STAX'}
                         {prize.position === 2 && 'LEDGER FLEX'}
                         {prize.position === 3 && 'FUSELABS'}
@@ -243,7 +250,7 @@ export default function Home() {
                         {prize.position === 3 && 'Crédito para usar e-commerce'}
                         {prize.position === 4 && '+ Curso Completo'}
                       </p>
-                      <p className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600 mt-3 drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]">
+                      <p className="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-600 mt-3 drop-shadow-[0_0_2px_rgba(251,191,36,0.8)] sm:drop-shadow-[0_0_20px_rgba(251,191,36,0.8)]">
                         R$ {prize.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </p>
                       
@@ -265,7 +272,7 @@ export default function Home() {
                             className="inline-block group"
                           >
                             <div className="relative transform transition-all duration-300 hover:translate-x-1 hover:translate-y-0.5">
-                              <div className="relative border-4 border-purple-500 bg-black px-6 py-2 shadow-[3px_3px_0px_rgba(168,85,247,1)] hover:shadow-[5px_5px_0px_rgba(236,72,153,1)]">
+                              <div className="relative border-4 border-purple-500 bg-black px-6 py-2 shadow-[1px_1px_0px_rgba(168,85,247,1)] sm:shadow-[3px_3px_0px_rgba(168,85,247,1)] hover:shadow-[5px_5px_0px_rgba(236,72,153,1)]">
                                 <span className="text-sm font-black uppercase tracking-wider text-white">
                                   {prize.position === 3 ? 'VER MAIS →' : 'VER NO SITE →'}
                                 </span>
@@ -289,22 +296,22 @@ export default function Home() {
               {/* Mensagem temporária */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 blur-3xl opacity-30" />
-                <div className="relative border-8 border-purple-500 bg-black p-8 sm:p-12 text-center shadow-[0_0_60px_rgba(168,85,247,0.6)] transform -rotate-1">
+                <div className="relative border-8 border-purple-500 bg-black p-8 sm:p-12 text-center shadow-[0_0_6px_rgba(168,85,247,0.6)] sm:shadow-[0_0_60px_rgba(168,85,247,0.6)] transform -rotate-1">
                   {/* Brutalist corner accents */}
                   <div className="absolute -top-6 -left-6 w-12 h-12 bg-yellow-400" />
                   <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-cyan-400" />
                   
                   <div className="relative">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-6 drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-6 sm:drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
                       🏆 RANKING EM BREVE
                     </h2>
                     <div className="max-w-2xl mx-auto">
-                      <p className="text-xl sm:text-2xl font-bold text-cyan-400 mb-4 drop-shadow-[0_0_20px_rgba(6,182,212,0.8)]">
+                      <p className="text-xl sm:text-2xl font-bold text-cyan-400 mb-4 drop-shadow-[0_0_2px_rgba(6,182,212,0.8)] sm:drop-shadow-[0_0_20px_rgba(6,182,212,0.8)]">
                         DIA 31 - LIBERAÇÃO TOTAL
                       </p>
                       <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
                         O ranking completo será revelado no dia 31! 
-                        <span className="block mt-2 text-yellow-400 font-bold animate-pulse drop-shadow-[0_0_15px_rgba(251,191,36,0.8)]">
+                        <span className="block mt-2 text-yellow-400 font-bold animate-pulse drop-shadow-[0_0_1.5px_rgba(251,191,36,0.8)] sm:drop-shadow-[0_0_15px_rgba(251,191,36,0.8)]">
                           Continue resgatando suas gotas em cada palestra para garantir sua posição no topo!
                         </span>
                       </p>
@@ -328,7 +335,7 @@ export default function Home() {
                         >
                           <div className="relative transform transition-all duration-300 hover:translate-x-1 hover:translate-y-0.5">
                             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 blur-lg opacity-50 group-hover:opacity-80 transition-opacity" />
-                            <div className="relative border-4 border-cyan-400 bg-black px-8 py-4 shadow-[5px_5px_0px_rgba(6,182,212,1)] hover:shadow-[8px_8px_0px_rgba(236,72,153,1)]">
+                            <div className="relative border-4 border-cyan-400 bg-black px-8 py-4 shadow-[2px_2px_0px_rgba(6,182,212,1)] sm:shadow-[5px_5px_0px_rgba(6,182,212,1)] hover:shadow-[8px_8px_0px_rgba(236,72,153,1)]">
                               <span className="text-lg font-black uppercase tracking-wider text-white">
                                 O QUE É GOTAS? 💧
                               </span>
