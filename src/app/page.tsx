@@ -331,18 +331,9 @@ export default function Home() {
                           Continue resgatando suas gotas em cada palestra para garantir sua posição no topo!
                         </span>
                       </p>
-                      <div className="mt-8 inline-block">
-                        <div className="bg-gradient-to-r from-pink-500 to-purple-500 p-1 shadow-[0_0_30px_rgba(236,72,153,0.8)]">
-                          <div className="bg-black px-6 py-3">
-                            <p className="text-sm sm:text-base font-black uppercase tracking-wider text-white">
-                              ⚡ Cada gota conta ⚡
-                            </p>
-                          </div>
-                        </div>
-                      </div>
                       
                       {/* Botão O que é gotas? */}
-                      <div className="mt-6">
+                      <div className="mt-8">
                         <a
                           href="https://the.gotas.com"
                           target="_blank"
