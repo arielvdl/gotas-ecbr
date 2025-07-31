@@ -5,7 +5,6 @@ import { mockPrizes } from '@/lib/mock-data';
 import { fetchRanking, RankingUser } from '@/services/ranking';
 
 function NeonBrutalistRankingList({ rankings }: { rankings: RankingUser[] }) {
-  const hasUndefined = rankings.some(r => !r.definido);
   return (
     <div className="space-y-6">
       {rankings.map((entry, index) => {
