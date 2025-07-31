@@ -1,19 +1,19 @@
 'use client';
 
-import { useState } from 'react';
-import { mockRanking, mockPrizes, currentUser } from '@/lib/mock-data';
-import { RankingEntry } from '@/lib/mock-data';
+import { useState, useEffect } from 'react';
+import { mockPrizes } from '@/lib/mock-data';
+import { fetchRanking, RankingUser } from '@/services/ranking';
 
-function NeonBrutalistRankingList({ rankings, currentUserId }: { rankings: RankingEntry[]; currentUserId?: string }) {
+function NeonBrutalistRankingList({ rankings }: { rankings: RankingUser[] }) {
+  const hasUndefined = rankings.some(r => !r.definido);
   return (
     <div className="space-y-6">
       {rankings.map((entry, index) => {
-        const isTopThree = entry.position <= 3;
-        const isCurrentUser = entry.user.id === currentUserId;
+        const isTopThree = (entry.position || index + 1) <= 3;
         
         return (
           <div
-            key={entry.user.id}
+            key={entry.id}
             className={`
               relative group
               ${index % 2 === 0 ? 'ml-0 mr-8' : 'ml-8 mr-0'}
@@ -33,7 +33,6 @@ function NeonBrutalistRankingList({ rankings, currentUserId }: { rankings: Ranki
                 ? 'border-yellow-400 bg-black shadow-[0_0_50px_rgba(251,191,36,0.5)]' 
                 : 'border-gray-700 bg-zinc-900'
               }
-              ${isCurrentUser ? 'shadow-[0_0_80px_rgba(59,130,246,0.8)]' : ''}
               transition-all duration-300
               hover:translate-x-2 hover:translate-y-1
               hover:shadow-[15px_15px_0px_rgba(236,72,153,1)]
@@ -58,20 +57,34 @@ function NeonBrutalistRankingList({ rankings, currentUserId }: { rankings: Ranki
                 transform rotate-12 group-hover:rotate-0 transition-transform duration-300
               `}>
                 <span className="text-2xl sm:text-3xl font-black tracking-tighter transform -rotate-12 group-hover:rotate-0 transition-transform duration-300">
-                  {entry.position}
+                  {entry.position || index + 1}
                 </span>
               </div>
 
               {/* User Info */}
               <div className="flex-1">
-                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white">
-                  {entry.user.name}
-                  {isCurrentUser && (
-                    <span className="text-cyan-400 ml-2 text-lg sm:text-xl animate-pulse drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]">
-                      (VOCÊ)
-                    </span>
-                  )}
-                </h3>
+                {entry.definido === false ? (
+                  <>
+                    <h3 className="text-lg sm:text-xl font-black uppercase tracking-wider text-yellow-400 animate-pulse">
+                      🏆 {entry.position}º LUGAR DISPONÍVEL!
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-300 mt-1">
+                      15 gotas? Envie email para <span className="text-cyan-400 font-bold">as@gotas.social</span>
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                      Primeiros emails garantem as posições!
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-white">
+                      {entry.name}
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-400 mt-1">
+                      ID: {entry.id}
+                    </p>
+                  </>
+                )}
                 {/* Neon underline */}
                 <div className="h-1 w-3/4 mt-1 bg-gradient-to-r from-pink-500 to-purple-500 shadow-[0_0_10px_rgba(236,72,153,0.8)]" />
               </div>
@@ -79,7 +92,7 @@ function NeonBrutalistRankingList({ rankings, currentUserId }: { rankings: Ranki
               {/* Drops Count */}
               <div className="text-right">
                 <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">
-                  {entry.totalDrops}
+                  {entry.drops}
                 </p>
                 <p className="text-sm sm:text-base font-black uppercase tracking-widest text-pink-500 drop-shadow-[0_0_8px_rgba(236,72,153,0.8)]">
                   GOTAS
@@ -98,6 +111,29 @@ function NeonBrutalistRankingList({ rankings, currentUserId }: { rankings: Ranki
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<'prizes' | 'ranking'>('prizes');
+  const [rankings, setRankings] = useState<RankingUser[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (activeTab === 'ranking') {
+      loadRankings();
+    }
+  }, [activeTab]);
+
+  const loadRankings = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await fetchRanking();
+      setRankings(data);
+    } catch (err) {
+      setError('Erro ao carregar o ranking. Tente novamente mais tarde.');
+      console.error('Error loading rankings:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
@@ -293,65 +329,116 @@ export default function Home() {
           ) : (
             /* Ranking Section */
             <div className="relative">
-              {/* Mensagem temporária */}
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 blur-3xl opacity-30" />
-                <div className="relative border-8 border-purple-500 bg-black p-8 sm:p-12 text-center shadow-[0_0_6px_rgba(168,85,247,0.6)] sm:shadow-[0_0_60px_rgba(168,85,247,0.6)] transform -rotate-1">
-                  {/* Brutalist corner accents */}
-                  <div className="absolute -top-6 -left-6 w-12 h-12 bg-yellow-400" />
-                  <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-cyan-400" />
-                  
-                  <div className="relative">
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-6 sm:drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
-                      🏆 RANKING EM BREVE
-                    </h2>
-                    <div className="max-w-2xl mx-auto">
-                      <p className="text-xl sm:text-2xl font-bold text-cyan-400 mb-4 drop-shadow-[0_0_2px_rgba(6,182,212,0.8)] sm:drop-shadow-[0_0_20px_rgba(6,182,212,0.8)]">
-                        DIA 31 - LIBERAÇÃO TOTAL
+              {loading ? (
+                <div className="text-center py-12">
+                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-400"></div>
+                  <p className="mt-4 text-xl font-bold text-gray-300">Carregando ranking...</p>
+                </div>
+              ) : error ? (
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-pink-500 to-orange-500 blur-3xl opacity-30" />
+                  <div className="relative border-8 border-red-500 bg-black p-8 text-center shadow-[0_0_60px_rgba(239,68,68,0.6)]">
+                    <p className="text-xl font-bold text-red-400">{error}</p>
+                    <button 
+                      onClick={loadRankings}
+                      className="mt-4 inline-block group"
+                    >
+                      <div className="relative transform transition-all duration-300 hover:translate-x-1 hover:translate-y-0.5">
+                        <div className="relative border-4 border-cyan-400 bg-black px-6 py-2 shadow-[3px_3px_0px_rgba(6,182,212,1)] hover:shadow-[5px_5px_0px_rgba(236,72,153,1)]">
+                          <span className="text-sm font-black uppercase tracking-wider text-white">
+                            TENTAR NOVAMENTE
+                          </span>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              ) : rankings.length > 0 ? (
+                <div>
+                  {/* Título do Ranking */}
+                  <div className="relative mb-12">
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 blur-3xl opacity-30" />
+                    <div className="relative border-8 border-purple-500 bg-black p-6 sm:p-8 text-center shadow-[0_0_60px_rgba(168,85,247,0.6)] transform -rotate-1">
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
+                        🏆 TOP 4 COLETORES DE GOTAS
+                      </h2>
+                      <p className="mt-4 text-lg sm:text-xl text-cyan-400 font-bold drop-shadow-[0_0_20px_rgba(6,182,212,0.8)]">
+                        Os melhores da arena até agora!
                       </p>
+                    </div>
+                  </div>
+                  
+                  {/* Lista de Rankings */}
+                  <NeonBrutalistRankingList rankings={rankings} />
+                  
+                  {/* Aviso sobre 3º e 4º lugares */}
+                  <div className="mt-8 relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-500 blur-2xl opacity-30" />
+                    <div className="relative border-4 border-yellow-400 bg-black p-6 shadow-[0_0_40px_rgba(251,191,36,0.6)]">
+                      <h3 className="text-lg sm:text-xl font-black uppercase text-yellow-400 mb-3 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]">
+                        ⚠️ ATENÇÃO: 3º E 4º LUGARES DISPONÍVEIS!
+                      </h3>
+                      <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                        Você tem <span className="text-cyan-400 font-bold">15 gotas</span>? Os prêmios de 3º e 4º lugar serão dados aos 
+                        <span className="text-pink-400 font-bold"> primeiros que enviarem email</span> para 
+                        <a href="mailto:as@gotas.social" className="text-cyan-400 font-bold underline ml-1">as@gotas.social</a>
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-400 mt-2">
+                        Candidatos com 15 gotas: Aislan Vargas (160954), Eco Dry SP (111402), Fabio Melo (161948)
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Informações sobre o ranking completo */}
+                  <div className="mt-8 relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-500 blur-2xl opacity-20" />
+                    <div className="relative border-4 border-yellow-400 bg-black p-6 text-center shadow-[0_0_40px_rgba(251,191,36,0.6)]">
                       <p className="text-lg sm:text-xl text-gray-300 leading-relaxed">
-                        O ranking completo será revelado no dia 31! 
-                        <span className="block mt-2 text-yellow-400 font-bold animate-pulse drop-shadow-[0_0_1.5px_rgba(251,191,36,0.8)] sm:drop-shadow-[0_0_15px_rgba(251,191,36,0.8)]">
-                          Continue resgatando suas gotas em cada palestra para garantir sua posição no topo!
+                        <span className="text-yellow-400 font-bold">📍 Dia 31, às 17h</span> - Ranking completo e distribuição dos prêmios!
+                        <span className="block mt-2 text-base text-gray-400">
+                          Continue resgatando gotas para subir no ranking!
                         </span>
                       </p>
-                      
-                      <div className="mt-6 p-4 border-2 border-cyan-400/50 bg-gray-900/50 rounded-lg">
-                        <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                          <span className="text-cyan-400 font-bold">📍 Dia 31, às 17h</span> - Os participantes com maior quantidade de gotas ganharão os prêmios de acordo com sua posição no ranking.
-                          <span className="block mt-2 text-sm sm:text-base text-gray-400">
-                            <span className="text-pink-400 font-semibold">⚠️ Em caso de empate:</span> O desempate será feito por ordem de claim - quem solicitar primeiro o prêmio neste site garantirá a melhor colocação.
+                    </div>
+                  </div>
+                  
+                  {/* Botão O que é gotas? */}
+                  <div className="mt-8 text-center">
+                    <a
+                      href="https://the.gotas.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block group"
+                    >
+                      <div className="relative transform transition-all duration-300 hover:translate-x-1 hover:translate-y-0.5">
+                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 blur-lg opacity-50 group-hover:opacity-80 transition-opacity" />
+                        <div className="relative border-4 border-cyan-400 bg-black px-8 py-4 shadow-[5px_5px_0px_rgba(6,182,212,1)] hover:shadow-[8px_8px_0px_rgba(236,72,153,1)]">
+                          <span className="text-lg font-black uppercase tracking-wider text-white">
+                            O QUE É GOTAS? 💧
                           </span>
-                        </p>
+                        </div>
                       </div>
-                      
-                      {/* Botão O que é gotas? */}
-                      <div className="mt-8">
-                        <a
-                          href="https://the.gotas.com"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-block group"
-                        >
-                          <div className="relative transform transition-all duration-300 hover:translate-x-1 hover:translate-y-0.5">
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 blur-lg opacity-50 group-hover:opacity-80 transition-opacity" />
-                            <div className="relative border-4 border-cyan-400 bg-black px-8 py-4 shadow-[2px_2px_0px_rgba(6,182,212,1)] sm:shadow-[5px_5px_0px_rgba(6,182,212,1)] hover:shadow-[8px_8px_0px_rgba(236,72,153,1)]">
-                              <span className="text-lg font-black uppercase tracking-wider text-white">
-                                O QUE É GOTAS? 💧
-                              </span>
-                            </div>
-                          </div>
-                        </a>
-                      </div>
+                    </a>
+                  </div>
+                </div>
+              ) : (
+                /* Mensagem temporária quando não há dados */
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 blur-3xl opacity-30" />
+                  <div className="relative border-8 border-purple-500 bg-black p-8 sm:p-12 text-center shadow-[0_0_60px_rgba(168,85,247,0.6)] transform -rotate-1">
+                    <div className="absolute -top-6 -left-6 w-12 h-12 bg-yellow-400" />
+                    <div className="absolute -bottom-6 -right-6 w-12 h-12 bg-cyan-400" />
+                    <div className="relative">
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-white mb-6 drop-shadow-[3px_3px_0px_rgba(236,72,153,1)]">
+                        🏆 RANKING EM BREVE
+                      </h2>
+                      <p className="text-xl sm:text-2xl font-bold text-cyan-400 mb-4 drop-shadow-[0_0_20px_rgba(6,182,212,0.8)]">
+                        Aguarde os primeiros coletores!
+                      </p>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Ranking oculto para uso futuro */}
-              <div className="hidden">
-                <NeonBrutalistRankingList rankings={mockRanking} currentUserId={currentUser.id} />
-              </div>
+              )}
             </div>
           )}
         </div>
@@ -363,9 +450,22 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="relative py-8 px-4 text-center border-t-4 border-gray-800">
-        <p className="text-sm sm:text-base font-medium text-gray-500">
-          © 2023 gotas.com
-        </p>
+        <div className="max-w-4xl mx-auto space-y-4">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-500 blur-2xl opacity-20" />
+            <div className="relative border-4 border-yellow-400 bg-black p-4 shadow-[0_0_30px_rgba(251,191,36,0.4)]">
+              <p className="text-base sm:text-lg font-bold text-yellow-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.8)]">
+                🏆 ATENÇÃO GANHADORES
+              </p>
+              <p className="text-sm sm:text-base text-gray-300 mt-2">
+                Os ganhadores serão contactados até o dia <span className="text-cyan-400 font-bold">2 de agosto</span> para receber o cupom dos prêmios.
+              </p>
+            </div>
+          </div>
+          <p className="text-sm sm:text-base font-medium text-gray-500">
+            © 2023 gotas.com
+          </p>
+        </div>
       </footer>
     </div>
   );
