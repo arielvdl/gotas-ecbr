@@ -3,9 +3,10 @@ import { DatabaseService } from '@/services/database';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { creatorId: string } }
+  context: { params: Promise<{ creatorId: string }> }
 ) {
   try {
+    const params = await context.params;
     const creatorId = params.creatorId;
     const searchParams = request.nextUrl.searchParams;
     const limit = parseInt(searchParams.get('limit') || '50');
